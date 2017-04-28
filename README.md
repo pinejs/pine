@@ -74,9 +74,8 @@ module.exports = (app) => {
 ##### 4. add a controller(app/controller/user.js)
 ```javascript
 const assert = require('assert');
-var pine = require('pine.js');
 
-class UserController extends pine.Controller {
+class UserController {
   async show (ctx, next){
     let loginName = ctx.params.loginname;
     this.app.logger.info('getUserByLoginName: %s', loginName);
@@ -91,9 +90,8 @@ module.exports = UserController;
 ##### 5. add a service
 ```javascript
 const assert = require('assert');
-var pine = require('pine.js');
 
-class UserService extends pine.Service {
+class UserService {
   /**
    * 根据登录名查找用户
    * Callback:
