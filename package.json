@@ -1,6 +1,6 @@
 {
   "name": "pine.js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A restful framework inspired by loopback",
   "main": "index.js",
   "scripts": {
