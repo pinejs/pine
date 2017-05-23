@@ -11,10 +11,9 @@
  * @param {Object | Array} objects - object assign from
  * @return {Object} - return target object
  */
-
-exports.assign = function (target, objects) {
+exports.assign = function(target, objects) {
   if (!Array.isArray(objects)) {
-    objects = [objects];
+    objects = [ objects ];
   }
 
   for (var i = 0; i < objects.length; i++) {

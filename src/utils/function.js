@@ -11,9 +11,6 @@
  * @return {Function}
  * @public
  */
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 exports.noop = function noop() {};
 
 /**
@@ -41,7 +38,9 @@ exports.getParamNames = function getParamNames(func, cache) {
  * @return {Boolean}
  */
 exports.isGeneratorFunction = function isGeneratorFunction(fn) {
-  return typeof fn === 'function' && fn.constructor && fn.constructor.name === 'GeneratorFunction';
+  return typeof fn === 'function' &&
+      fn.constructor &&
+      fn.constructor.name === 'GeneratorFunction'
 };
 
 /**
@@ -49,8 +48,10 @@ exports.isGeneratorFunction = function isGeneratorFunction(fn) {
  *
  * @param {Object} value
  */
-exports.isPromise = function (value) {
-  if (!value) return false;
-  if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) !== 'object' && typeof value !== 'function') return false;
-  return typeof value.then === 'function';
-};
+exports.isPromise = function(value) {
+    if (!value)
+        return false;
+    if (typeof value !== 'object' && typeof value !== 'function')
+        return false;
+    return typeof value.then === 'function';
+}

@@ -4,4 +4,4 @@ coverage/
 npm-debug.log
 .vscode
 logs/
-
+lib/

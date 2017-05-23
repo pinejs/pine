@@ -12,7 +12,6 @@
  *   - {Error} error
  *   - {Mix} value
  */
-
 exports.try = function (fn) {
   var res = {
     error: undefined,
@@ -22,7 +21,9 @@ exports.try = function (fn) {
   try {
     res.value = fn();
   } catch (err) {
-    res.error = err instanceof Error ? err : new Error(err);
+    res.error = err instanceof Error
+      ? err
+      : new Error(err);
   }
 
   return res;

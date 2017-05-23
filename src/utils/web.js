@@ -12,7 +12,6 @@
  * @return {String}
  * @public
  */
-
 exports.escape = require('escape-html');
 
 /**

@@ -9,8 +9,6 @@
  * Module dependencies.
  */
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var crypto = require('crypto');
 
 /**
@@ -25,7 +23,7 @@ var crypto = require('crypto');
 exports.hash = function hash(method, s, format) {
   var sum = crypto.createHash(method);
   var isBuffer = Buffer.isBuffer(s);
-  if (!isBuffer && (typeof s === 'undefined' ? 'undefined' : _typeof(s)) === 'object') {
+  if (!isBuffer && typeof s === 'object') {
     s = JSON.stringify(sortObject(s));
   }
   sum.update(s, isBuffer ? 'binary' : 'utf8');
@@ -132,7 +130,7 @@ exports.base64decode = function base64decode(encodeStr, urlsafe, encoding) {
 };
 
 function sortObject(o) {
-  if (!o || Array.isArray(o) || (typeof o === 'undefined' ? 'undefined' : _typeof(o)) !== 'object') {
+  if (!o || Array.isArray(o) || typeof o !== 'object') {
     return o;
   }
   var keys = Object.keys(o);
