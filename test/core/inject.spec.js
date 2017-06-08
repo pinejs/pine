@@ -15,10 +15,6 @@ const REFLECTION_KEY = 'inject';
 //   t.deepEqual(meta, []);
 // })
 
-
-
-
-
 // test(t => {
   class TestClass {
     constructor(@inject('foo') foo) { }

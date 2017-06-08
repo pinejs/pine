@@ -43,7 +43,7 @@ class Context {
         return this._mergeWithParent(bindings, parentBindings);
     }
 
-    findByTag(pattern) {
+    findByAlias(pattern) {
         const bindings = [];
         const glob = new RegExp('^' + pattern.split('*').join('.*') + '$');
         this.registry.forEach(binding => {

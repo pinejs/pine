@@ -4,12 +4,11 @@
  * babel-node decorator.spec.js
  */
  const assert = require("assert");
- require("reflect-metadata");
- const REFLECTION_KEY = 'inject';
+ // require("reflect-metadata");
 
 //定义一个函数，也就是定义一个Decorator，target参数就是传进来的Class。
 //这里是为类添加了一个静态属性
-function Test(opts) {
+function Test(opts = {}) {
   return function(target) {
     target.isTestable = !opts.ignore;
   }
@@ -17,7 +16,7 @@ function Test(opts) {
 
 //在Decorator后面跟着Class，Decorator是函数的话，怎么不是testable(MyTestableClass)这样写呢？
 //我只能这样理解：因为语法就这样，只要Decorator后面是Class，默认就已经把Class当成参数隐形传进Decorator了。
-@Test({ignore: false})
+@Test()
 class MyTestableClass {}
 
 console.log(`isTestable: ${MyTestableClass.isTestable}`);
@@ -71,14 +70,14 @@ math.add(2, 4);
 function inject(bindingKey) {
   return function markArgumentAsInjected(target, propertyKey, parameterIndex) {
     assert(parameterIndex != undefined, '@inject decorator can be used on function arguments only!');
-    const injectedArgs = Reflect.getOwnMetadata(REFLECTION_KEY, target, propertyKey) || [];
+    const injectedArgs = Reflect.getOwnMetadata('inject', target, propertyKey) || [];
     injectedArgs[parameterIndex] = bindingKey;
-    Reflect.defineMetadata(REFLECTION_KEY, injectedArgs, target, propertyKey);
+    Reflect.defineMetadata('inject', injectedArgs, target, propertyKey);
   };
 }
 
 function describeInjectedArguments(target) {
-  return Reflect.getOwnMetadata(REFLECTION_KEY, target) || [];
+  return Reflect.getOwnMetadata('inject', target) || [];
 }
 
 class TestClass {
@@ -112,5 +111,7 @@ class C {
 
 // Metadata introspection
 let obj = new C("a", 1);
-let paramTypes = Reflect.getMetadata("design:paramtypes", obj, "add"); // [Number, Number]
-console.log("design:paramtypes => ", paramTypes);
+let paramTypes = Reflect.getMetadata("design:paramtypes", C);
+console.log("class design:paramtypes => ", paramTypes);
+paramTypes = Reflect.getMetadata("design:paramtypes", obj, "add"); // [Number, Number]
+console.log("function design:paramtypes => ", paramTypes);
